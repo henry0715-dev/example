@@ -1,6 +1,7 @@
 mod test_first;
 mod test_vector;
 mod test_number;
+mod test_string;
 
 fn main() {
 
@@ -20,8 +21,15 @@ fn main() {
     test_number::subtract_product_and_sum::test();
     test_number::smaller_numbers_than_current::test();
 
-    // TODO test - String
+    // test - String
+    test_string::defang_i_paddr::test();
+    test_string::num_jewels_in_stones::test();
+    test_string::most_words_found::test();
+    test_string::sort_sentence::test();
+    test_string::count_matches::test();
+
     // TODO test - Encoding/Decoding
+
     // TODO test - Iterations
 
 
