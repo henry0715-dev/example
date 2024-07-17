@@ -8,8 +8,10 @@ pub fn test() {
 }
 
 fn get_concatenation(nums: &Vec<i32>) -> Vec<i32> {
-    let mut ans = Vec::new();
-    ans.extend(nums);
-    ans.extend(nums);
+    let len = nums.len();
+    let mut ans = Vec::with_capacity(2 * len);
+
+    ans.extend_from_slice(nums);
+    ans.extend_from_slice(nums);
     ans
 }
