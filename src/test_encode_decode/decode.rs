@@ -1,0 +1,25 @@
+/*
+    https://leetcode.com/problems/decode-xored-array/
+    1. decoded 배열 생성
+    2. encoded 전달 받은 배열과 xor 연산하여 decoded update
+ */
+
+pub fn test() {
+    let encoded = vec![1,2,3];
+    let first = 1;
+
+    println!("{:?}", decode(encoded, first));
+
+}
+
+fn decode(encoded: Vec<i32>, first: i32) -> Vec<i32> {
+    let mut decoded = Vec::with_capacity(encoded.len() + 1);
+    decoded.push(first);
+
+    for value in encoded {
+        let last_value = *decoded.last().unwrap();
+        decoded.push(last_value ^ value);
+    }
+
+    decoded
+}
