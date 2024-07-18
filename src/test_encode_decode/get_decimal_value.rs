@@ -27,7 +27,7 @@ pub fn test() {
     }
 
     let head = Some(Box::new(node1));
-    println!("{}", get_decimal_value(head));
+    println!("get_decimal_value result : {}", get_decimal_value(head));
 }
 
 fn get_decimal_value(head: Option<Box<ListNode>>) -> i32 {
@@ -40,4 +40,23 @@ fn get_decimal_value(head: Option<Box<ListNode>>) -> i32 {
     }
 
     num
+}
+
+#[test]
+fn tc() {
+    let mut node1 = ListNode::new(1);
+    let node2 = ListNode::new(0);
+    let node3 = ListNode::new(1);
+
+    node1.next = Some(Box::new(node2));
+
+    if let Some(ref mut node1_next) = node1.next {
+        node1_next.next = Some(Box::new(node3));
+    }
+
+    let head = Some(Box::new(node1));
+
+    let result = get_decimal_value(head);
+    let check = 5;
+    assert_eq!(result, check);
 }

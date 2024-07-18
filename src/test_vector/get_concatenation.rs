@@ -1,10 +1,10 @@
 /*
-    https://leetcode.com/problems/concatenation-of-array
- */
+   https://leetcode.com/problems/concatenation-of-array
+*/
 pub fn test() {
     let nums = vec![1, 2, 1];
     let ans = get_concatenation(&nums);
-    println!("{ans:?}");
+    println!("get_concatenation result : {ans:?}");
 }
 
 fn get_concatenation(nums: &Vec<i32>) -> Vec<i32> {
@@ -14,4 +14,12 @@ fn get_concatenation(nums: &Vec<i32>) -> Vec<i32> {
     ans.extend_from_slice(nums);
     ans.extend_from_slice(nums);
     ans
+}
+
+#[test]
+fn tc() {
+    let nums = vec![1, 2, 1];
+    let result = get_concatenation(&nums);
+    let check = vec![1, 2, 1, 1, 2, 1];
+    assert_eq!(result, check);
 }

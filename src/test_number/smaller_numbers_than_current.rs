@@ -1,13 +1,19 @@
 /*
-    https://leetcode.com/problems/how-many-numbers-are-smaller-than-the-current-number/
-    순회하며 현재의 num의 값보다 작은 값이 있을 경우에 대한 카운팅
- */
+   https://leetcode.com/problems/how-many-numbers-are-smaller-than-the-current-number/
+   순회하며 현재의 num의 값보다 작은 값이 있을 경우에 대한 카운팅
+*/
 use std::collections::HashMap;
 
 pub fn test() {
-    let nums = vec![8,1,2,2,3];
-    println!("{:?}", smaller_numbers_than_current(&nums));
-    println!("{:?}", smaller_numbers_than_current_perf(&nums));
+    let nums = vec![8, 1, 2, 2, 3];
+    println!(
+        "smaller_numbers_than_current : {:?}",
+        smaller_numbers_than_current(&nums)
+    );
+    println!(
+        "smaller_numbers_than_current_perf : {:?}",
+        smaller_numbers_than_current_perf(&nums)
+    );
 
     // let nums = vec![6,5,4,8];
     // println!("{:?}", smaller_numbers_than_current(&nums));
@@ -22,7 +28,7 @@ fn smaller_numbers_than_current(nums: &Vec<i32>) -> Vec<i32> {
     let mut ans = Vec::with_capacity(nums.len());
 
     for num in nums {
-        let cnt = nums.iter().filter( |n| n < &num).count();
+        let cnt = nums.iter().filter(|n| n < &num).count();
         ans.push(cnt as i32);
     }
 
@@ -30,9 +36,9 @@ fn smaller_numbers_than_current(nums: &Vec<i32>) -> Vec<i32> {
 }
 
 /*
-    성능 최적화
-    정렬된 배열을 이용하여 현재 값에 위치한 index 번호를 기준으로 갯수를 체크
- */
+   성능 최적화
+   정렬된 배열을 이용하여 현재 값에 위치한 index 번호를 기준으로 갯수를 체크
+*/
 fn smaller_numbers_than_current_perf(nums: &Vec<i32>) -> Vec<i32> {
     let mut map = HashMap::new();
     let mut ordered_nums = nums.clone();
@@ -42,5 +48,15 @@ fn smaller_numbers_than_current_perf(nums: &Vec<i32>) -> Vec<i32> {
         map.entry(num).or_insert(index);
     }
 
-    nums.iter().map(|&num| *map.get(&num).unwrap() as i32).collect()
+    nums.iter()
+        .map(|&num| *map.get(&num).unwrap() as i32)
+        .collect()
+}
+
+#[test]
+fn tc() {
+    let nums = vec![8, 1, 2, 2, 3];
+    let result = smaller_numbers_than_current(&nums);
+    let check = vec![4, 0, 1, 1, 3];
+    assert_eq!(result, check);
 }
