@@ -7,16 +7,13 @@ pub fn test() {
     println!("build_array result : {:?}", build_array(&nums));
 }
 
-fn build_array(nums: &Vec<i32>) -> Vec<i32> {
-    let mut ans = Vec::with_capacity(nums.len());
-
-    for &num in nums {
-        let idx = num as usize;
-        let value = nums[idx];
-        ans.push(value);
-    }
-
-    ans
+fn build_array(nums: &[i32]) -> Vec<i32> {
+    nums.iter()
+        .map(|&num| {
+            let num_idx = usize::try_from(num).unwrap();
+            nums[num_idx]
+        })
+        .collect()
 }
 
 #[test]

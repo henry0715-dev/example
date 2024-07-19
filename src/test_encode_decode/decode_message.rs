@@ -8,20 +8,20 @@
 use std::collections::HashMap;
 
 pub fn test() {
-    let key = "the quick brown fox jumps over the lazy dog".to_string();
-    let message = "vkbs bs t suepuv".to_string();
+    let key = "the quick brown fox jumps over the lazy dog";
+    let message = "vkbs bs t suepuv";
     println!("{}", decode_message(key, message));
 }
 
-fn decode_message(key: String, message: String) -> String {
-    let replace_key = &key.replace(" ", "");
+fn decode_message(key: &str, message: &str) -> String {
+    let replace_key = &key.replace(' ', "");
     let mut base_table_idx: usize = 0;
     let base_table = "abcdefghijklmnopqrstuvwxyz".chars().collect::<Vec<_>>();
 
     let mut key_map = HashMap::new();
     for c in replace_key.chars() {
-        if !key_map.contains_key(&c) {
-            key_map.insert(c, base_table[base_table_idx]);
+        if let std::collections::hash_map::Entry::Vacant(e) = key_map.entry(c) {
+            e.insert(base_table[base_table_idx]);
             base_table_idx += 1;
         }
     }
@@ -34,8 +34,8 @@ fn decode_message(key: String, message: String) -> String {
 
 #[test]
 fn tc() {
-    let key = "the quick brown fox jumps over the lazy dog".to_string();
-    let message = "vkbs bs t suepuv".to_string();
+    let key = "the quick brown fox jumps over the lazy dog";
+    let message = "vkbs bs t suepuv";
     let result = decode_message(key, message);
     let check = "this is a secret".to_string();
     assert_eq!(result, check);

@@ -15,7 +15,7 @@ pub fn test() {
     );
 }
 
-pub fn decompress_rl_elist(nums: &Vec<i32>) -> Vec<i32> {
+pub fn decompress_rl_elist(nums: &[i32]) -> Vec<i32> {
     let mut ans = Vec::new();
 
     for i in 0..nums.iter().len() / 2 {
@@ -31,15 +31,13 @@ pub fn decompress_rl_elist(nums: &Vec<i32>) -> Vec<i32> {
 }
 
 // 가독성 개선 코드
-pub fn decompress_rl_elis_perf(nums: &Vec<i32>) -> Vec<i32> {
+pub fn decompress_rl_elis_perf(nums: &[i32]) -> Vec<i32> {
     let mut ans = Vec::new();
 
-    let mut iter = nums.chunks_exact(2);
+    let iter = nums.chunks_exact(2);
 
-    while let Some(chunk) = iter.next() {
-        let freq = chunk[0];
-        let value = chunk[1];
-        ans.extend(std::iter::repeat(value).take(freq as usize));
+    for chunk in iter {
+        ans.extend(std::iter::repeat(chunk[1]));
     }
 
     ans

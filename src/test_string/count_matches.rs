@@ -26,21 +26,24 @@ pub fn test() {
 
     println!(
         "count_matches result : {}",
-        count_matches(items, rule_key, rule_value)
+        count_matches(&items, &rule_key, &rule_value)
     );
 }
 
-fn count_matches(items: Vec<Vec<String>>, rule_key: String, rule_value: String) -> i32 {
+fn count_matches(items: &[Vec<String>], rule_key: &str, rule_value: &str) -> i32 {
     let search_idx = get_column_by_rule_key(rule_key);
 
-    items
-        .iter()
-        .filter(|item| item[search_idx] == rule_value)
-        .count() as i32
+    i32::try_from(
+        items
+            .iter()
+            .filter(|item| item[search_idx] == rule_value)
+            .count(),
+    )
+    .unwrap_or(0)
 }
 
-fn get_column_by_rule_key(rule_key: String) -> usize {
-    match rule_key.as_str() {
+fn get_column_by_rule_key(rule_key: &str) -> usize {
+    match rule_key {
         "type" => 0,
         "color" => 1,
         "name" => 2,
@@ -50,12 +53,7 @@ fn get_column_by_rule_key(rule_key: String) -> usize {
 
 #[test]
 fn tc() {
-    let items: Vec<Vec<String>> = vec![
-        vec![
-            String::from("phone"),
-            String::from("blue"),
-            String::from("pixel"),
-        ],
+    let test_items: Vec<Vec<String>> = vec![
         vec![
             String::from("computer"),
             String::from("silver"),
@@ -70,7 +68,7 @@ fn tc() {
     let rule_key = String::from("color");
     let rule_value = String::from("silver");
 
-    let result = count_matches(items, rule_key, rule_value);
+    let result = count_matches(&test_items, &rule_key, &rule_value);
     let check = 1;
     assert_eq!(result, check);
 }

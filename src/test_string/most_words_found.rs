@@ -10,15 +10,18 @@ pub fn test() {
         String::from("this is great thanks very much"),
     ];
 
-    println!("most_words_found result : {}", most_words_found(sentences));
+    println!("most_words_found result : {}", most_words_found(&sentences));
 }
 
-fn most_words_found(sentences: Vec<String>) -> i32 {
-    sentences
-        .iter()
-        .map(|s| s.split_whitespace().count())
-        .max()
-        .unwrap_or(0) as i32
+fn most_words_found(sentences: &[String]) -> i32 {
+    i32::try_from(
+        sentences
+            .iter()
+            .map(|s| s.split_whitespace().count())
+            .max()
+            .unwrap(),
+    )
+    .unwrap_or(0)
 }
 
 #[test]
@@ -29,7 +32,7 @@ fn tc() {
         String::from("this is great thanks very much"),
     ];
 
-    let result = most_words_found(sentences);
+    let result = most_words_found(&sentences);
     let check = 6;
     assert_eq!(result, check);
 }

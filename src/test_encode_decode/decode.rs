@@ -8,26 +8,22 @@ pub fn test() {
     let encoded = vec![1, 2, 3];
     let first = 1;
 
-    println!("decode result : {:?}", decode(encoded, first));
+    println!("decode result : {:?}", decode(&encoded, first));
 }
 
-fn decode(encoded: Vec<i32>, first: i32) -> Vec<i32> {
-    let mut decoded = Vec::with_capacity(encoded.len() + 1);
-    decoded.push(first);
-
-    for value in encoded {
+fn decode(encoded: &[i32], first: i32) -> Vec<i32> {
+    encoded.iter().fold(vec![first], |mut decoded, &value| {
         let last_value = *decoded.last().unwrap();
         decoded.push(last_value ^ value);
-    }
-
-    decoded
+        decoded
+    })
 }
 
 #[test]
 fn tc() {
     let encoded = vec![1, 2, 3];
     let first = 1;
-    let result = decode(encoded, first);
+    let result = decode(&encoded, first);
     let check = vec![1, 0, 2, 1];
     assert_eq!(result, check);
 }

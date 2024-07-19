@@ -9,11 +9,11 @@ pub fn test() {
     let s = String::from("codeleet");
     let indices = vec![4, 5, 6, 7, 0, 2, 1, 3];
 
-    println!("restore_string result : {}", restore_string(s, indices));
+    println!("restore_string result : {}", restore_string(&s, indices));
 }
 
-fn restore_string(s: String, indices: Vec<i32>) -> String {
-    let mut s_array: Vec<(i32, char)> = indices.into_iter().zip(s.chars().into_iter()).collect();
+fn restore_string(s: &str, indices: Vec<i32>) -> String {
+    let mut s_array: Vec<(i32, char)> = indices.into_iter().zip(s.chars()).collect();
     s_array.sort_by(|a, b| a.0.cmp(&b.0));
     s_array.into_iter().map(|(_a, b)| b).collect()
 }
@@ -22,7 +22,7 @@ fn restore_string(s: String, indices: Vec<i32>) -> String {
 fn tc() {
     let s = String::from("codeleet");
     let indices = vec![4, 5, 6, 7, 0, 2, 1, 3];
-    let result = restore_string(s, indices);
+    let result = restore_string(&s, indices);
     let check = "leetcode".to_string();
     assert_eq!(result, check);
 }

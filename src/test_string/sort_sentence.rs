@@ -5,43 +5,37 @@
    3. index 번호에 맞는 위치에 문자열 저장
    4. vec join 으로 결과 추출
 */
+use std::collections::HashMap;
+
 pub fn test() {
     let s = String::from("is2 sentence4 This1 a3");
-    println!("sort_sentence result : {}", sort_sentence(s));
+    println!("sort_sentence result : {}", sort_sentence(&s));
 }
 
-fn sort_sentence(s: String) -> String {
-    let mut ans: Vec<Option<String>> = vec![None; s.split_whitespace().count()];
+fn sort_sentence(s: &str) -> String {
+    let mut map: HashMap<isize, String> = HashMap::new();
 
-    adjust_ans(s, &mut ans);
-
-    ans.into_iter()
-        .map(|x| x.unwrap())
-        .collect::<Vec<String>>()
-        .join(" ")
-}
-
-fn adjust_ans(s: String, ans: &mut Vec<Option<String>>) {
     for x in s.split_whitespace() {
-        let mut index: usize = 0;
-        let mut strs = String::with_capacity(x.len());
-
-        for c in x.chars() {
-            if c.is_numeric() {
-                index = (c.to_digit(10).unwrap() as usize) - 1;
-            } else {
-                strs.push(c);
-            }
-        }
-        ans[index] = Some(strs);
+        let (key, value): (String, String) = x.chars().partition(|&c| c.is_numeric());
+        let key: isize = key.parse().unwrap();
+        map.entry(key).or_insert(value);
     }
+
+    let mut sorted: Vec<_> = map.into_iter().collect();
+    sorted.sort_by_key(|&(k, _)| k);
+
+    sorted
+        .into_iter()
+        .map(|(_, v)| v)
+        .collect::<Vec<_>>()
+        .join(" ")
 }
 
 #[test]
 fn tc() {
     let s = String::from("is2 sentence4 This1 a3");
 
-    let result = sort_sentence(s);
+    let result = sort_sentence(&s);
     let check = "This is a sentence".to_string();
     assert_eq!(result, check);
 }

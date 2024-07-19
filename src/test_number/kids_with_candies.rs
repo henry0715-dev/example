@@ -9,41 +9,38 @@ pub fn test() {
     let extra_candies = 3;
     println!(
         "kids_with_candies result : {:?}",
-        kids_with_candies(candies, extra_candies)
+        kids_with_candies(&candies, extra_candies)
     );
 
     let candies = vec![4, 2, 1, 1, 2];
     let extra_candies = 1;
     println!(
         "kids_with_candies result : {:?}",
-        kids_with_candies(candies, extra_candies)
+        kids_with_candies(&candies, extra_candies)
     );
 
     let candies = vec![12, 1, 12];
     let extra_candies = 10;
     println!(
         "kids_with_candies result : {:?}",
-        kids_with_candies(candies, extra_candies)
+        kids_with_candies(&candies, extra_candies)
     );
 }
 
-fn kids_with_candies(candies: Vec<i32>, extra_candies: i32) -> Vec<bool> {
+fn kids_with_candies(candies: &[i32], extra_candies: i32) -> Vec<bool> {
     let greatest = candies.iter().max().unwrap();
-    let mut ans = Vec::with_capacity(candies.len());
 
-    for candy in &candies {
-        let condition = (candy + extra_candies) >= *greatest;
-        ans.push(condition);
-    }
-
-    ans
+    candies
+        .iter()
+        .map(|candy| (candy + extra_candies) >= *greatest)
+        .collect()
 }
 
 #[test]
 fn tc() {
     let candies = vec![2, 3, 5, 1, 3];
     let extra_candies = 3;
-    let result = kids_with_candies(candies, extra_candies);
+    let result = kids_with_candies(&candies, extra_candies);
     let check = vec![true, true, true, false, true];
     assert_eq!(result, check);
 }

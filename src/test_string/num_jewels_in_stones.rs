@@ -10,7 +10,7 @@ pub fn test() {
     let stones = "aAAbbbb".to_string();
     println!(
         "num_jewels_in_stones result : {}",
-        num_jewels_in_stones(jewels, stones)
+        num_jewels_in_stones(&jewels, &stones)
     );
 
     // let jewels = "z".to_string();
@@ -18,16 +18,16 @@ pub fn test() {
     // println!("num_jewels_in_stones result : {}", num_jewels_in_stones(jewels, stones));
 }
 
-fn num_jewels_in_stones(jewels: String, stones: String) -> i32 {
+fn num_jewels_in_stones(jewels: &str, stones: &str) -> i32 {
     let char_set: HashSet<char> = jewels.chars().collect();
-    stones.chars().filter(|c| char_set.contains(c)).count() as i32
+    i32::try_from(stones.chars().filter(|c| char_set.contains(c)).count()).unwrap_or(0)
 }
 
 #[test]
 fn tc() {
     let jewels = "aA".to_string();
     let stones = "aAAbbbb".to_string();
-    let result = num_jewels_in_stones(jewels, stones);
+    let result = num_jewels_in_stones(&jewels, &stones);
     let check = 3;
     assert_eq!(result, check);
 }

@@ -24,12 +24,12 @@ pub fn test() {
     // println!("{:?}", smaller_numbers_than_current_perf(&nums));
 }
 
-fn smaller_numbers_than_current(nums: &Vec<i32>) -> Vec<i32> {
+fn smaller_numbers_than_current(nums: &[i32]) -> Vec<usize> {
     let mut ans = Vec::with_capacity(nums.len());
 
     for num in nums {
         let cnt = nums.iter().filter(|n| n < &num).count();
-        ans.push(cnt as i32);
+        ans.push(cnt);
     }
 
     ans
@@ -39,18 +39,17 @@ fn smaller_numbers_than_current(nums: &Vec<i32>) -> Vec<i32> {
    성능 최적화
    정렬된 배열을 이용하여 현재 값에 위치한 index 번호를 기준으로 갯수를 체크
 */
-fn smaller_numbers_than_current_perf(nums: &Vec<i32>) -> Vec<i32> {
+fn smaller_numbers_than_current_perf(nums: &[i32]) -> Vec<usize> {
     let mut map = HashMap::new();
-    let mut ordered_nums = nums.clone();
-    ordered_nums.sort();
+    let mut ordered_nums = nums.to_owned();
+
+    ordered_nums.sort_unstable();
 
     for (index, num) in ordered_nums.iter().enumerate() {
         map.entry(num).or_insert(index);
     }
 
-    nums.iter()
-        .map(|&num| *map.get(&num).unwrap() as i32)
-        .collect()
+    nums.iter().map(|&num| *map.get(&num).unwrap()).collect()
 }
 
 #[test]

@@ -12,14 +12,14 @@ pub fn test() {
 
     println!(
         "final_value_after_operations result : {}",
-        final_value_after_operations(operations)
+        final_value_after_operations(&operations)
     );
 }
-fn final_value_after_operations(operations: Vec<String>) -> i32 {
+fn final_value_after_operations(operations: &[String]) -> i32 {
     let mut map: HashMap<String, i32> = HashMap::with_capacity(2);
 
-    for operation in &operations {
-        let key = operation.replace("X", "");
+    for operation in operations {
+        let key = operation.replace('X', "");
         let count = map.entry(key).or_insert(0);
         *count += 1;
     }
@@ -33,7 +33,7 @@ fn final_value_after_operations(operations: Vec<String>) -> i32 {
 #[test]
 fn tc() {
     let operations = vec!["--X".to_string(), "X++".to_string(), "X++".to_string()];
-    let result = final_value_after_operations(operations);
+    let result = final_value_after_operations(&operations);
     let check = 1;
 
     assert_eq!(result, check);

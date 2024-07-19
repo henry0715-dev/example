@@ -25,7 +25,8 @@ fn minimum_sum(num: i32) -> i32 {
 
 fn get_ordered_char_array_by_nums(num: i32) -> Vec<char> {
     let mut char_array: Vec<char> = num.to_string().chars().collect();
-    char_array.sort_by(|a, b| a.cmp(b));
+    char_array.sort_unstable();
+
     char_array
 }
 

@@ -19,19 +19,18 @@ pub fn test() {
     // println!("{}", num_identical_pairs(&nums));
 }
 
-fn num_identical_pairs(nums: &Vec<i32>) -> i32 {
+fn num_identical_pairs(nums: &[i32]) -> i32 {
     let mut ans = 0;
     let mut nums_map: HashMap<i32, i32> = HashMap::new();
 
-    for i in 0..nums.len() {
-        let opt_value = nums_map.get(&nums[i]);
+    for item in nums {
+        let opt_value = nums_map.get(item);
 
-        if opt_value.is_some() {
-            ans += opt_value.unwrap();
+        if let Some(&value) = opt_value {
+            ans += value;
         }
 
-        let counter = nums_map.entry(nums[i]).or_insert(0);
-        *counter += 1;
+        *nums_map.entry(*item).or_insert(0) += 1;
     }
 
     ans

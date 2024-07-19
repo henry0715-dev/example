@@ -26,7 +26,7 @@ fn subtract_product_and_sum(n: i32) -> i32 {
 fn get_array_by_num(num: i32) -> Vec<i32> {
     num.to_string()
         .chars()
-        .map(|c| c.to_digit(10).unwrap() as i32)
+        .filter_map(|c| Option::from(i32::try_from(c.to_digit(10).unwrap()).unwrap()))
         .collect()
 }
 
