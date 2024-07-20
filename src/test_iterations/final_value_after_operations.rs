@@ -16,13 +16,13 @@ pub fn test() {
     );
 }
 fn final_value_after_operations(operations: &[String]) -> i32 {
-    let mut map: HashMap<String, i32> = HashMap::with_capacity(2);
-
-    for operation in operations {
-        let key = operation.replace('X', "");
-        let count = map.entry(key).or_insert(0);
-        *count += 1;
-    }
+    let map = operations
+        .iter()
+        .fold(HashMap::with_capacity(2), |mut m, operation| {
+            let key = operation.replace('X', "");
+            *m.entry(key).or_insert(0) += 1;
+            m
+        });
 
     let plus_count = map.get("++").copied().unwrap_or(0);
     let minus_count = map.get("--").copied().unwrap_or(0);

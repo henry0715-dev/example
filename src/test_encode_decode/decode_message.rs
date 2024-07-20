@@ -7,6 +7,11 @@
 */
 use std::collections::HashMap;
 
+static BASE_TABLE: [char; 26] = [
+    'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's',
+    't', 'u', 'v', 'w', 'x', 'y', 'z',
+];
+
 pub fn test() {
     let key = "the quick brown fox jumps over the lazy dog";
     let message = "vkbs bs t suepuv";
@@ -14,17 +19,16 @@ pub fn test() {
 }
 
 fn decode_message(key: &str, message: &str) -> String {
-    let replace_key = &key.replace(' ', "");
     let mut base_table_idx: usize = 0;
-    let base_table = "abcdefghijklmnopqrstuvwxyz".chars().collect::<Vec<_>>();
-
     let mut key_map = HashMap::new();
-    for c in replace_key.chars() {
-        if let std::collections::hash_map::Entry::Vacant(e) = key_map.entry(c) {
-            e.insert(base_table[base_table_idx]);
+
+    key.chars().filter(|&c| c != ' ').for_each(|c| {
+        key_map.entry(c).or_insert_with(|| {
+            let val = BASE_TABLE[base_table_idx];
             base_table_idx += 1;
-        }
-    }
+            val
+        });
+    });
 
     message
         .chars()

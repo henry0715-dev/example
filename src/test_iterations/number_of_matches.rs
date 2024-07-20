@@ -14,11 +14,8 @@ fn number_of_matches(n: i32) -> i32 {
     let mut ans = 0;
 
     while teams > 1 {
-        let matches = teams / 2;
-        let advance = teams - matches;
-
-        ans += matches;
-        teams = advance;
+        ans += teams / 2;
+        teams = (teams + 1) / 2;
     }
 
     ans

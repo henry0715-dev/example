@@ -13,10 +13,10 @@ pub fn test() {
 fn create_target_array(nums: &[i32], index: &[usize]) -> Vec<i32> {
     let mut ans = Vec::with_capacity(nums.len());
 
-    for (i, &idx) in index.iter().enumerate() {
-        let value = nums[i];
+    index.iter().zip(nums.iter()).for_each(|(&idx, &value)| {
         ans.insert(idx, value);
-    }
+    });
+
     ans
 }
 
