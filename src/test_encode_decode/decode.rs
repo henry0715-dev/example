@@ -13,8 +13,8 @@ pub fn test() {
 
 fn decode(encoded: &[i32], first: i32) -> Vec<i32> {
     encoded.iter().fold(vec![first], |mut decoded, &value| {
-        let last_value = *decoded.last().unwrap();
-        decoded.push(last_value ^ value);
+        let last_value = *decoded.last().unwrap_or(&first);
+        decoded.insert(decoded.len(), last_value ^ value);
         decoded
     })
 }

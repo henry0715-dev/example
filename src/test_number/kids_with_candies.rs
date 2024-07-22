@@ -9,31 +9,33 @@ pub fn test() {
     let extra_candies = 3;
     println!(
         "kids_with_candies result : {:?}",
-        kids_with_candies(&candies, extra_candies)
+        Some(kids_with_candies(&candies, extra_candies))
     );
 
     let candies = vec![4, 2, 1, 1, 2];
     let extra_candies = 1;
     println!(
         "kids_with_candies result : {:?}",
-        kids_with_candies(&candies, extra_candies)
+        Some(kids_with_candies(&candies, extra_candies))
     );
 
     let candies = vec![12, 1, 12];
     let extra_candies = 10;
     println!(
         "kids_with_candies result : {:?}",
-        kids_with_candies(&candies, extra_candies)
+        Some(kids_with_candies(&candies, extra_candies))
     );
 }
 
-fn kids_with_candies(candies: &[i32], extra_candies: i32) -> Vec<bool> {
-    let greatest = candies.iter().max().unwrap();
+fn kids_with_candies(candies: &[i32], extra_candies: i32) -> Option<Vec<bool>> {
+    let greatest = candies.iter().max()?;
 
-    candies
-        .iter()
-        .map(|candy| (candy + extra_candies) >= *greatest)
-        .collect()
+    Some(
+        candies
+            .iter()
+            .map(|candy| (candy + extra_candies) >= *greatest)
+            .collect(),
+    )
 }
 
 #[test]
@@ -42,5 +44,5 @@ fn tc() {
     let extra_candies = 3;
     let result = kids_with_candies(&candies, extra_candies);
     let check = vec![true, true, true, false, true];
-    assert_eq!(result, check);
+    assert_eq!(result, Some(check));
 }

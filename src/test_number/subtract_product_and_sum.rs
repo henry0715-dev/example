@@ -15,18 +15,18 @@ pub fn test() {
     );
 }
 
-fn subtract_product_and_sum(n: i32) -> i32 {
-    let n_array: Vec<i32> = get_array_by_num(n);
-    let product: i32 = n_array.iter().product();
-    let sum: i32 = n_array.iter().sum();
+fn subtract_product_and_sum(n: u32) -> u32 {
+    let n_array: Vec<u32> = get_array_by_num(n);
+    let product: u32 = n_array.iter().product();
+    let sum: u32 = n_array.iter().sum();
 
     product - sum
 }
 
-fn get_array_by_num(num: i32) -> Vec<i32> {
+fn get_array_by_num(num: u32) -> Vec<u32> {
     num.to_string()
         .chars()
-        .filter_map(|c| Option::from(i32::try_from(c.to_digit(10).unwrap()).unwrap()))
+        .filter_map(|c| c.to_digit(10))
         .collect()
 }
 

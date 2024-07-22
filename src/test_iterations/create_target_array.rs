@@ -10,14 +10,14 @@ pub fn test() {
     println!("{:?}", create_target_array(&nums, &index));
 }
 
-fn create_target_array(nums: &[i32], index: &[usize]) -> Vec<i32> {
-    let mut ans = Vec::with_capacity(nums.len());
+fn create_target_array(nums: &[i32], indices: &[usize]) -> Vec<i32> {
+    let mut target_array = Vec::with_capacity(nums.len());
 
-    index.iter().zip(nums.iter()).for_each(|(&idx, &value)| {
-        ans.insert(idx, value);
-    });
+    for (&index, &value) in indices.iter().zip(nums.iter()) {
+        target_array.insert(index, value);
+    }
 
-    ans
+    target_array
 }
 
 #[test]

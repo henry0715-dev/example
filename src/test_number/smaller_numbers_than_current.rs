@@ -25,14 +25,9 @@ pub fn test() {
 }
 
 fn smaller_numbers_than_current(nums: &[i32]) -> Vec<usize> {
-    let mut ans = Vec::with_capacity(nums.len());
-
-    for num in nums {
-        let cnt = nums.iter().filter(|n| n < &num).count();
-        ans.push(cnt);
-    }
-
-    ans
+    nums.iter()
+        .map(|num| nums.iter().filter(|n| n < &num).count())
+        .collect()
 }
 
 /*
@@ -49,7 +44,9 @@ fn smaller_numbers_than_current_perf(nums: &[i32]) -> Vec<usize> {
         map.entry(num).or_insert(index);
     }
 
-    nums.iter().map(|&num| *map.get(&num).unwrap()).collect()
+    nums.iter()
+        .map(|&num| *map.get(&num).unwrap_or(&0))
+        .collect()
 }
 
 #[test]

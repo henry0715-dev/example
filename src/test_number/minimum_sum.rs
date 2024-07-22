@@ -7,20 +7,16 @@
 */
 
 pub fn test() {
-    println!("minimum_sum result : {}", minimum_sum(2932));
-    println!("minimum_sum result : {}", minimum_sum(4009));
+    println!("minimum_sum result : {:?}", minimum_sum(2932));
+    println!("minimum_sum result : {:?}", minimum_sum(4009));
 }
 
-fn minimum_sum(num: i32) -> i32 {
+fn minimum_sum(num: i32) -> Option<i32> {
     let char_array = get_ordered_char_array_by_nums(num);
-    let num1: i32 = format!("{}{}", char_array[0], char_array[2])
-        .parse()
-        .unwrap();
-    let num2: i32 = format!("{}{}", char_array[1], char_array[3])
-        .parse()
-        .unwrap();
+    let num1: i32 = format!("{}{}", char_array[0], char_array[2]).parse().ok()?;
+    let num2: i32 = format!("{}{}", char_array[1], char_array[3]).parse().ok()?;
 
-    num1 + num2
+    Some(num1 + num2)
 }
 
 fn get_ordered_char_array_by_nums(num: i32) -> Vec<char> {
@@ -34,5 +30,5 @@ fn get_ordered_char_array_by_nums(num: i32) -> Vec<char> {
 fn tc() {
     let result = minimum_sum(2932);
     let check = 52;
-    assert_eq!(result, check);
+    assert_eq!(result, Some(check));
 }

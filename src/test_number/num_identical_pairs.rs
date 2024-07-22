@@ -12,28 +12,28 @@ pub fn test() {
         num_identical_pairs(&nums)
     );
 
-    // let nums = vec![1,1,1,1];
-    // println!("{}", num_identical_pairs(&nums));
-    //
-    // let nums = vec![1,2,3];
-    // println!("{}", num_identical_pairs(&nums));
+    let nums = vec![1, 1, 1, 1];
+    println!(
+        "num_identical_pairs result : {}",
+        num_identical_pairs(&nums)
+    );
+
+    let nums = vec![1, 2, 3];
+    println!(
+        "num_identical_pairs result : {}",
+        num_identical_pairs(&nums)
+    );
 }
 
 fn num_identical_pairs(nums: &[i32]) -> i32 {
-    let mut ans = 0;
-    let mut nums_map: HashMap<i32, i32> = HashMap::new();
-
-    for item in nums {
-        let opt_value = nums_map.get(item);
-
-        if let Some(&value) = opt_value {
-            ans += value;
-        }
-
-        *nums_map.entry(*item).or_insert(0) += 1;
-    }
-
-    ans
+    let ans_tuple = nums
+        .iter()
+        .fold((0, HashMap::new()), |(mut ans, mut nums_map), num| {
+            ans += nums_map.get(&num).unwrap_or(&0);
+            *nums_map.entry(num).or_insert(0) += 1;
+            (ans, nums_map)
+        });
+    ans_tuple.0
 }
 
 #[test]
