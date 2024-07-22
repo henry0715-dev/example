@@ -9,11 +9,7 @@ pub fn test() {
 }
 
 fn shuffle(nums: &[i32], n: usize) -> Vec<i32> {
-    nums[..n]
-        .iter()
-        .zip(&nums[n..])
-        .flat_map(|(&left, &right)| vec![left, right])
-        .collect()
+    (0..n).flat_map(|i| [nums[i], nums[n + i]]).collect()
 }
 
 #[test]

@@ -8,14 +8,7 @@ pub fn test() {
 }
 
 fn get_concatenation(nums: &[i32]) -> Vec<i32> {
-    let len = nums.len();
-    let mut ans = Vec::with_capacity(2 * len);
-
-    for &num in nums.iter().cycle().take(2 * len) {
-        ans.push(num);
-    }
-
-    ans
+    [nums, nums].concat()
 }
 
 #[test]
