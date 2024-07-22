@@ -10,8 +10,13 @@ pub fn test() {
 fn build_array(nums: &[i32]) -> Result<Vec<i32>, &str> {
     nums.iter()
         .map(|&num| {
-            let num_idx = usize::try_from(num).expect("InvalidIndex num_idx");
-            nums.get(num_idx).copied().ok_or("Index out of bounds")
+            let num_idx = usize::try_from(num).unwrap_or_else(|_| {
+                panic!("InvalidIndex: The given number {num} cannot be converted to usize")
+            });
+
+            nums.get(num_idx)
+                .copied()
+                .ok_or("IndexError: The index out of bounds")
         })
         .collect()
 }
