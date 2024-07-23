@@ -7,11 +7,26 @@
 */
 
 pub fn test() {
-    println!("minimum_sum result : {:?}", minimum_sum(2932));
-    println!("minimum_sum result : {:?}", minimum_sum(4009));
+    // println!("minimum_sum result : {:?}", minimum_sum(2932));
+    // println!("minimum_sum result : {:?}", minimum_sum(4009));
+    match minimum_sum(123) {
+        None => {
+            println!(
+                "Invalid parameter: Input `num` value should be within a 4-digit number range."
+            );
+        }
+        Some(result) => {
+            println!("minimum_sum result : {result}.");
+        }
+    }
 }
 
 fn minimum_sum(num: i32) -> Option<i32> {
+    //주어진 조건은 4자리 숫자이기 때문에 해당 조건이 맞지 않으면 None 반환
+    if !(1000..=9999).contains(&num) {
+        return None;
+    }
+
     let char_array = get_ordered_char_array_by_nums(num);
     let num1: i32 = format!("{}{}", char_array[0], char_array[2]).parse().ok()?;
     let num2: i32 = format!("{}{}", char_array[1], char_array[3]).parse().ok()?;
@@ -31,4 +46,7 @@ fn tc() {
     let result = minimum_sum(2932);
     let check = 52;
     assert_eq!(result, Some(check));
+
+    let result = minimum_sum(123);
+    assert_eq!(result, None);
 }
