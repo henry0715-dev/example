@@ -35,13 +35,13 @@ fn tc() {
     let result = build_array(&nums);
     assert_eq!(
         result.unwrap_err(),
-        "Invalid index error: The given number cannot be converted to usize."
+        "Invalid index error: The given number `num_idx` should be a value convertible to `usize`."
     );
 
     let nums = vec![0, 2, 1, 6, 3, 4];
     let result = build_array(&nums);
     assert_eq!(
         result.unwrap_err(),
-        "Index error: Index out of bounds error."
+        "Index error: The given number `num_idx` should be the number corresponding to the array index."
     );
 }
