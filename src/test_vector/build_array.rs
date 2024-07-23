@@ -11,12 +11,14 @@ fn build_array(nums: &[i32]) -> Result<Vec<i32>, &str> {
     nums.iter()
         .map(|&num| {
             let Ok(num_idx) = usize::try_from(num) else {
-                return Err("Invalid index error: The given number cannot be converted to usize.");
+                return Err(
+                    "Invalid index error: The given number `num_idx` should be a value convertible to `usize`.",
+                );
             };
 
             nums.get(num_idx)
                 .copied()
-                .ok_or("Index error: Index out of bounds error.")
+                .ok_or("Index error: The given number `num_idx` should be the number corresponding to the array index.")
         })
         .collect()
 }
