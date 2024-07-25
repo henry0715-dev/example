@@ -26,14 +26,18 @@ pub fn test() {
 }
 
 fn num_identical_pairs(nums: &[i32]) -> i32 {
-    let ans_tuple = nums
-        .iter()
-        .fold((0, HashMap::new()), |(mut ans, mut nums_map), num| {
-            ans += nums_map.get(&num).unwrap_or(&0);
-            *nums_map.entry(num).or_insert(0) += 1;
-            (ans, nums_map)
-        });
-    ans_tuple.0
+    let mut nums_map = HashMap::new();
+    let mut ans = 0;
+
+    for num in nums {
+        ans += nums_map.get(num).unwrap_or(&0);
+        nums_map
+            .entry(num)
+            .and_modify(|value| *value += 1)
+            .or_insert(1);
+    }
+
+    ans
 }
 
 #[test]

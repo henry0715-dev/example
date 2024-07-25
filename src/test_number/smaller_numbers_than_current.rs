@@ -26,7 +26,7 @@ pub fn test() {
 
 fn smaller_numbers_than_current(nums: &[i32]) -> Vec<usize> {
     nums.iter()
-        .map(|num| nums.iter().filter(|n| n < &num).count())
+        .map(|num| nums.iter().filter(|n| *n < num).count())
         .collect()
 }
 

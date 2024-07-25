@@ -28,14 +28,12 @@ pub fn test() {
 }
 
 fn kids_with_candies(candies: &[i32], extra_candies: i32) -> Option<Vec<bool>> {
-    let greatest = candies.iter().max()?;
-
-    Some(
+    candies.iter().max().map(|greatest| {
         candies
             .iter()
-            .map(|candy| (candy + extra_candies) >= *greatest)
-            .collect(),
-    )
+            .map(|candy| (*candy + extra_candies) >= *greatest)
+            .collect()
+    })
 }
 
 #[test]
