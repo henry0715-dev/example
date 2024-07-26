@@ -30,11 +30,10 @@ fn num_identical_pairs(nums: &[i32]) -> i32 {
     let mut ans = 0;
 
     for num in nums {
-        ans += nums_map.get(num).unwrap_or(&0);
-        nums_map
+        ans += *nums_map
             .entry(num)
             .and_modify(|value| *value += 1)
-            .or_insert(1);
+            .or_insert(0);
     }
 
     ans
