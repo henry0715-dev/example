@@ -1,4 +1,6 @@
-//https://leetcode.com/problems/running-sum-of-1d-array
+/*
+   https://leetcode.com/problems/running-sum-of-1d-array
+*/
 pub fn test() {
     let nums = [1, 2, 3, 4];
     println!("running_sum result : {:?}", running_sum(&nums));
