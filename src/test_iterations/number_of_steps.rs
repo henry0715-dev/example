@@ -10,27 +10,36 @@ pub fn test() {
     println!("number_of_steps result is {}", number_of_steps(14));
     println!("number_of_steps result is {}", number_of_steps(8));
     println!("number_of_steps result is {}", number_of_steps(123));
+    println!("number_of_steps result is {}", number_of_steps(128));
 }
-fn number_of_steps(num: i32) -> i32 {
-    let mut count = 0;
-    let mut current = num;
-
-    while current > 0 {
-        if current % 2 == 0 {
-            current /= 2;
-        } else {
-            current -= 1;
-        }
-        count += 1;
-    }
-
-    count
+fn number_of_steps(num: u32) -> u32 {
+    /*
+       leading_zeros : 2진법 최대 자리 1 이전까지 0으로 나오는 수
+       count_ones : 2진법 1의 갯수
+       (32 - leading_zeros) + count_ones - 1: 우리가 원하는 수를 계산하는 수식
+    */
+    32 - num.leading_zeros() + num.count_ones() - 1
 }
 
 #[test]
 fn tc() {
     let result = number_of_steps(14);
     let check = 6;
+
+    assert_eq!(result, check);
+
+    let result = number_of_steps(8);
+    let check = 4;
+
+    assert_eq!(result, check);
+
+    let result = number_of_steps(123);
+    let check = 12;
+
+    assert_eq!(result, check);
+
+    let result = number_of_steps(128);
+    let check = 8;
 
     assert_eq!(result, check);
 }

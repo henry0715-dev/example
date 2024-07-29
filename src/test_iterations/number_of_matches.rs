@@ -9,13 +9,12 @@ pub fn test() {
     println!("number_of_matches result : {}", number_of_matches(n));
 }
 
-fn number_of_matches(n: i32) -> i32 {
-    let mut teams = n;
+fn number_of_matches(mut n: i32) -> i32 {
     let mut ans = 0;
 
-    while teams > 1 {
-        ans += teams / 2;
-        teams = (teams + 1) / 2;
+    while n > 1 {
+        ans += n / 2;
+        n = (n + 1) / 2;
     }
 
     ans

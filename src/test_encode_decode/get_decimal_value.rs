@@ -1,62 +1,31 @@
 /*
    https://leetcode.com/problems/convert-binary-number-in-a-linked-list-to-integer/
+   배열로 변경하여 적용
 */
 
-#[derive(PartialEq, Eq, Clone, Debug)]
-struct ListNode {
-    pub val: i32,
-    pub next: Option<Box<ListNode>>,
-}
-
-impl ListNode {
-    #[inline]
-    fn new(val: i32) -> Self {
-        ListNode { next: None, val }
-    }
-}
-
 pub fn test() {
-    let mut node1 = ListNode::new(1);
-    let node2 = ListNode::new(0);
-    let node3 = ListNode::new(1);
-
-    node1.next = Some(Box::new(node2));
-
-    if let Some(ref mut node1_next) = node1.next {
-        node1_next.next = Some(Box::new(node3));
-    }
-
-    let head = Some(Box::new(node1));
-    println!("get_decimal_value result : {}", get_decimal_value(&head));
+    let arr = [1, 0, 1];
+    println!("get_decimal_value result : {}", get_decimal_value(&arr));
 }
 
-fn get_decimal_value(head: &Option<Box<ListNode>>) -> i32 {
-    let mut num = 0;
-    let mut current_node = head.as_ref();
-
-    while let Some(node) = current_node {
-        num = num * 2 + node.val;
-        current_node = node.next.as_ref();
-    }
-
-    num
+fn get_decimal_value(arr: &[u32]) -> u32 {
+    /*
+       let mut num = 0;
+       arr.iter().for_each(|x| num = num * 2 + x);
+       num
+    */
+    arr.iter().fold(0, |num, &x| num * 2 + x)
 }
 
 #[test]
 fn tc() {
-    let mut node1 = ListNode::new(1);
-    let node2 = ListNode::new(0);
-    let node3 = ListNode::new(1);
-
-    node1.next = Some(Box::new(node2));
-
-    if let Some(ref mut node1_next) = node1.next {
-        node1_next.next = Some(Box::new(node3));
-    }
-
-    let head = Some(Box::new(node1));
-
-    let result = get_decimal_value(&head);
+    let arr = [1, 0, 1];
+    let result = get_decimal_value(&arr);
     let check = 5;
+    assert_eq!(result, check);
+
+    let arr = [1, 0, 0, 1];
+    let result = get_decimal_value(&arr);
+    let check = 9;
     assert_eq!(result, check);
 }

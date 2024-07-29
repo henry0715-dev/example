@@ -15,16 +15,13 @@ pub fn test() {
         min_moves_to_seat(seats, students)
     );
 }
-fn min_moves_to_seat(seats: Vec<i32>, students: Vec<i32>) -> i32 {
-    let mut sorted_seats = seats;
-    let mut sorted_students = students;
+fn min_moves_to_seat(mut seats: Vec<i32>, mut students: Vec<i32>) -> i32 {
+    seats.sort_unstable();
+    students.sort_unstable();
 
-    sorted_seats.sort_unstable();
-    sorted_students.sort_unstable();
-
-    sorted_seats
+    seats
         .iter()
-        .zip(sorted_students.iter())
+        .zip(students.iter())
         .map(|(seat, student)| (seat - student).abs())
         .sum()
 }

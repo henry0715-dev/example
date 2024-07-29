@@ -13,14 +13,17 @@ pub fn test() {
         num_jewels_in_stones(&jewels, &stones)
     );
 
-    // let jewels = "z".to_string();
-    // let stones = "ZZ".to_string();
-    // println!("num_jewels_in_stones result : {}", num_jewels_in_stones(jewels, stones));
+    let jewels = "z".to_string();
+    let stones = "ZZ".to_string();
+    println!(
+        "num_jewels_in_stones result : {}",
+        num_jewels_in_stones(&jewels, &stones)
+    );
 }
 
-fn num_jewels_in_stones(jewels: &str, stones: &str) -> i32 {
+fn num_jewels_in_stones(jewels: &str, stones: &str) -> usize {
     let char_set: HashSet<char> = jewels.chars().collect();
-    i32::try_from(stones.chars().filter(|c| char_set.contains(c)).count()).unwrap_or(0)
+    stones.chars().filter(|c| char_set.contains(c)).count()
 }
 
 #[test]

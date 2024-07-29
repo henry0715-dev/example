@@ -14,7 +14,7 @@ pub fn test() {
 
 fn restore_string(s: &str, indices: Vec<i32>) -> String {
     let mut s_array: Vec<(i32, char)> = indices.into_iter().zip(s.chars()).collect();
-    s_array.sort_by(|a, b| a.0.cmp(&b.0));
+    s_array.sort_unstable_by(|a, b| a.0.cmp(&b.0));
     s_array.into_iter().map(|(_a, b)| b).collect()
 }
 

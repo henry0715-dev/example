@@ -30,16 +30,13 @@ pub fn test() {
     );
 }
 
-fn count_matches(items: &[Vec<String>], rule_key: &str, rule_value: &str) -> i32 {
+fn count_matches(items: &[Vec<String>], rule_key: &str, rule_value: &str) -> usize {
     let search_idx = get_column_by_rule_key(rule_key);
 
-    i32::try_from(
-        items
-            .iter()
-            .filter(|item| item[search_idx] == rule_value)
-            .count(),
-    )
-    .unwrap_or(0)
+    items
+        .iter()
+        .filter(|item| item[search_idx] == rule_value)
+        .count()
 }
 
 fn get_column_by_rule_key(rule_key: &str) -> usize {
@@ -47,7 +44,7 @@ fn get_column_by_rule_key(rule_key: &str) -> usize {
         "type" => 0,
         "color" => 1,
         "name" => 2,
-        _ => panic!("rule_key."),
+        _ => panic!("The value of rule_key should be type, color, and name."),
     }
 }
 

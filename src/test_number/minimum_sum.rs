@@ -28,8 +28,20 @@ fn minimum_sum(num: i32) -> Option<i32> {
     }
 
     let char_array = get_ordered_char_array_by_nums(num);
-    let num1: i32 = format!("{}{}", char_array[0], char_array[2]).parse().ok()?;
-    let num2: i32 = format!("{}{}", char_array[1], char_array[3]).parse().ok()?;
+    let num1: i32 = format!(
+        "{}{}",
+        char_array.first().expect("The index value should be `0`."),
+        char_array.get(2).expect("The index value should be `2`.")
+    )
+    .parse()
+    .ok()?;
+    let num2: i32 = format!(
+        "{}{}",
+        char_array.get(1).expect("The index value should be `1`."),
+        char_array.get(3).expect("The index value should be `3`.")
+    )
+    .parse()
+    .ok()?;
 
     Some(num1 + num2)
 }

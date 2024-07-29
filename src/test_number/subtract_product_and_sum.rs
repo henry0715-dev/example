@@ -39,7 +39,10 @@ fn subtract_product_and_sum(n: i32) -> Option<u32> {
      - radix 값이 너무 크게 주어진다면 None 이 발생할 수 있지만, 10으로 고정한 상태임.
 */
 fn get_array_by_num(num: i32) -> Option<Vec<u32>> {
-    num.to_string().chars().map(|c| c.to_digit(10)).collect()
+    num.to_string()
+        .chars()
+        .map(|c| c.to_digit(10))
+        .collect::<Option<Vec<u32>>>()
 }
 
 #[test]

@@ -14,12 +14,11 @@ pub fn test() {
 pub fn decompress_rl_elist(nums: &[i32]) -> Vec<i32> {
     let mut ans = Vec::new();
 
-    for i in 0..nums.iter().len() / 2 {
-        let freq = nums[2 * i];
-        let value = nums[2 * i + 1];
-
-        for _j in 0..freq {
-            ans.push(value);
+    for chunk in nums.chunks(2) {
+        if let [freq, value] = chunk {
+            for _ in 0..*freq {
+                ans.push(*value);
+            }
         }
     }
 
@@ -29,6 +28,11 @@ pub fn decompress_rl_elist(nums: &[i32]) -> Vec<i32> {
 #[test]
 fn tc() {
     let nums = vec![1, 2, 3, 4];
+    let result = decompress_rl_elist(&nums);
+    let check = vec![2, 4, 4, 4];
+    assert_eq!(result, check);
+
+    let nums = vec![1, 2, 3, 4, 5]; // 5는 panic 발생하지 않는지 테스트를 위해 추가
     let result = decompress_rl_elist(&nums);
     let check = vec![2, 4, 4, 4];
     assert_eq!(result, check);

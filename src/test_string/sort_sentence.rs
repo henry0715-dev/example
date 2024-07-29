@@ -9,26 +9,29 @@ use std::collections::HashMap;
 
 pub fn test() {
     let s = String::from("is2 sentence4 This1 a3");
-    println!("sort_sentence result : {}", sort_sentence(&s));
+    println!("sort_sentence result : {:?}", sort_sentence(&s));
 }
 
-fn sort_sentence(s: &str) -> String {
-    let mut map: HashMap<isize, String> = HashMap::new();
+fn sort_sentence(s: &str) -> Result<String, &str> {
+    let mut map: HashMap<i64, String> = HashMap::new();
 
     for x in s.split_whitespace() {
         let (key, value): (String, String) = x.chars().partition(|&c| c.is_numeric());
-        let key: isize = key.parse().unwrap();
+        let key: i64 = match key.parse() {
+            Ok(num) => num,
+            Err(_) => return Err("Key should contain a number."),
+        };
         map.entry(key).or_insert(value);
     }
 
     let mut sorted: Vec<_> = map.into_iter().collect();
-    sorted.sort_by_key(|&(k, _)| k);
+    sorted.sort_unstable_by_key(|&(k, _)| k);
 
-    sorted
+    Ok(sorted
         .into_iter()
         .map(|(_, v)| v)
         .collect::<Vec<_>>()
-        .join(" ")
+        .join(" "))
 }
 
 #[test]
@@ -37,5 +40,10 @@ fn tc() {
 
     let result = sort_sentence(&s);
     let check = "This is a sentence".to_string();
-    assert_eq!(result, check);
+    assert_eq!(result, Ok(check));
+
+    let s = String::from("is sentence4 This1 a3");
+
+    let result = sort_sentence(&s);
+    assert_eq!(result.is_err(), true);
 }

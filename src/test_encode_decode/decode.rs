@@ -12,11 +12,12 @@ pub fn test() {
 }
 
 fn decode(encoded: &[i32], first: i32) -> Vec<i32> {
-    encoded.iter().fold(vec![first], |mut decoded, &value| {
-        let last_value = *decoded.last().unwrap_or(&first);
-        decoded.insert(decoded.len(), last_value ^ value);
-        decoded
-    })
+    let mut result: Vec<i32> = vec![first];
+    result.extend(encoded.iter().scan(first, |state, &x| {
+        *state ^= x;
+        Some(*state)
+    }));
+    result
 }
 
 #[test]

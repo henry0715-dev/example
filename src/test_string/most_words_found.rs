@@ -13,15 +13,12 @@ pub fn test() {
     println!("most_words_found result : {}", most_words_found(&sentences));
 }
 
-fn most_words_found(sentences: &[String]) -> i32 {
-    i32::try_from(
-        sentences
-            .iter()
-            .map(|s| s.split_whitespace().count())
-            .max()
-            .unwrap(),
-    )
-    .unwrap_or(0)
+fn most_words_found(sentences: &[String]) -> usize {
+    sentences
+        .iter()
+        .map(|s| s.split_whitespace().count())
+        .max()
+        .unwrap_or(0)
 }
 
 #[test]
@@ -35,4 +32,8 @@ fn tc() {
     let result = most_words_found(&sentences);
     let check = 6;
     assert_eq!(result, check);
+
+    let sentences: Vec<String> = vec![];
+    let result = most_words_found(&sentences);
+    assert_eq!(result, 0);
 }
