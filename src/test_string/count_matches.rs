@@ -35,7 +35,7 @@ fn count_matches(items: &[Vec<String>], rule_key: &str, rule_value: &str) -> usi
 
     items
         .iter()
-        .filter(|item| item[search_idx] == rule_value)
+        .filter(|item| item.get(search_idx).expect("The item should exist.") == rule_value)
         .count()
 }
 

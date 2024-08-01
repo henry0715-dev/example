@@ -18,7 +18,7 @@ fn most_words_found(sentences: &[String]) -> usize {
         .iter()
         .map(|s| s.split_whitespace().count())
         .max()
-        .unwrap_or(0)
+        .unwrap_or_default()
 }
 
 #[test]

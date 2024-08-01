@@ -17,10 +17,7 @@ fn sort_sentence(s: &str) -> Result<String, &str> {
 
     for x in s.split_whitespace() {
         let (key, value): (String, String) = x.chars().partition(|&c| c.is_numeric());
-        let key: i64 = match key.parse() {
-            Ok(num) => num,
-            Err(_) => return Err("Key should contain a number."),
-        };
+        let key: i64 = key.parse().map_err(|_| "Key should contain a number.")?;
         map.entry(key).or_insert(value);
     }
 

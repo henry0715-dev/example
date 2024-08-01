@@ -11,18 +11,13 @@ pub fn test() {
     );
 }
 
-pub fn decompress_rl_elist(nums: &[i32]) -> Vec<i32> {
-    let mut ans = Vec::new();
-
-    for chunk in nums.chunks(2) {
+fn decompress_rl_elist(nums: &[u32]) -> Vec<u32> {
+    nums.chunks(2).fold(vec![], |mut ans, chunk| {
         if let [freq, value] = chunk {
-            for _ in 0..*freq {
-                ans.push(*value);
-            }
+            ans.extend(std::iter::repeat(*value).take(*freq as usize));
         }
-    }
-
-    ans
+        ans
+    })
 }
 
 #[test]

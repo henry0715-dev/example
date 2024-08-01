@@ -25,11 +25,10 @@ pub fn test() {
 }
 
 fn subtract_product_and_sum(n: i32) -> Option<u32> {
-    get_array_by_num(n).and_then(|array| {
+    get_array_by_num(n).map(|array| {
         let product: u32 = array.iter().product();
         let sum: u32 = array.iter().sum();
-
-        Option::from(product - sum)
+        product - sum
     })
 }
 
