@@ -14,7 +14,10 @@ pub fn test() {
 fn decompress_rl_elist(nums: &[u32]) -> Vec<u32> {
     nums.chunks(2).fold(vec![], |mut ans, chunk| {
         if let [freq, value] = chunk {
-            ans.extend(std::iter::repeat(*value).take(*freq as usize));
+            ans.extend(
+                std::iter::repeat(*value)
+                    .take(usize::try_from(*freq).expect("The conversion of u32 to usize is safe.")),
+            );
         }
         ans
     })
