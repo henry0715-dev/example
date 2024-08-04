@@ -4,7 +4,7 @@
 pub fn test() {
     let nums = [1, 2, 1];
     let ans = get_concatenation(&nums);
-    println!("{ans:?}");
+    println!("get_concatenation result : {ans:?}");
 }
 
 fn get_concatenation(nums: &[i32]) -> Vec<i32> {

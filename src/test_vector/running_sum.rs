@@ -1,10 +1,9 @@
 /*
    https://leetcode.com/problems/running-sum-of-1d-array
 */
-
 pub fn test() {
     let nums = [1, 2, 3, 4];
-    println!("{:?}", running_sum(&nums));
+    println!("running_sum result : {:?}", running_sum(&nums));
 }
 
 pub fn running_sum(nums: &[i32]) -> Vec<i32> {

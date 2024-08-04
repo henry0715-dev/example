@@ -4,7 +4,7 @@
 
 pub fn test() {
     let nums = vec![0, 2, 1, 5, 3, 4];
-    println!("{:?}", build_array(&nums));
+    println!("build_array result : {:?}", build_array(&nums));
 }
 
 fn build_array(nums: &[i32]) -> Result<Vec<i32>, &str> {

@@ -4,7 +4,7 @@
 
 pub fn test() {
     let nums = vec![2, 5, 1, 3, 4, 7];
-    println!("{:?}", shuffle(&nums));
+    println!("shuffle :  {:?}", shuffle(&nums));
 }
 
 fn shuffle(nums: &[i32]) -> Vec<i32> {

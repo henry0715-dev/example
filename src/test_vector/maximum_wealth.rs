@@ -1,7 +1,6 @@
 /*
    https://leetcode.com/problems/richest-customer-wealth/description/
 */
-
 pub fn test() {
     let accounts: Vec<Vec<i32>> = vec![vec![1, 2, 3], vec![3, 2, 1]];
 
