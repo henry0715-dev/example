@@ -23,7 +23,6 @@ fn decode_message(key: &str, message: &str) -> String {
         .for_each(|c| {
             key_map.entry(c).or_insert_with(|| {
                 let val = char::from(base);
-                // let val = base as char;
                 base += 1;
                 val
             });
